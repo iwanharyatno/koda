@@ -1,26 +1,71 @@
 @import "tailwindcss";
 
+@theme {
+  /* Koda Core: Minimalist White & Earthy Accents */
+  --color-koda-background: #FFFFFF;
+  --color-koda-surface: #FDFBF9; /* Warm Bone White for card surfaces */
+  --color-koda-bear: #D29B5D;     /* Primary Accent: Mascot Brown */
+  --color-koda-charcoal: #1A1A1A;  /* Secondary Accent: Deep Black */
+  --color-koda-border: rgba(26, 26, 26, 0.08);
+
+  /* Indicator System: Muted Earth Tones */
+  --color-status-done: #708238;     /* Olive Green */
+  --color-status-skipped: #B35D4D;  /* Terracotta Red */
+  --color-status-deferred: #5F7A8C; /* Slate Blue */
+  --color-status-pending: #D4A017;  /* Ochre Gold */
+
+  /* Koda Mood System: Updated for Light Theme */
+  --color-mood-hyped: #FFB400;      /* Classic Honey */
+  --color-mood-thinking: #5D5FEF;   /* Soft Indigo */
+  --color-mood-nudging: #E67E22;    /* Burnt Orange */
+
+  /* Custom Values: Refined & Smaller */
+  --radius-koda-card: 12px;
+  --radius-koda-chat: 16px;
+}
+
+/* Base Styles */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --foreground-rgb: 26, 26, 26;
+  --background-rgb: 255, 255, 255;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Components */
+@layer components {
+  /* Swapping shadows for clean 1px borders */
+  .border-card {
+    @apply bg-koda-surface border border-koda-border rounded-koda-card;
+  }
+
+  /* Koda's Chat Bubbles: High Contrast */
+  .koda-bubble {
+    @apply rounded-koda-chat rounded-bl-none p-4 bg-koda-bear text-white font-medium;
+  }
+
+  .user-bubble {
+    @apply rounded-koda-chat rounded-br-none p-4 bg-koda-charcoal text-white ml-auto;
+  }
+
+  /* Status Badge Utility */
+  .status-badge {
+    @apply px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider border;
+  }
+}
+
+/* Minimalist Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-koda-bear/20 rounded-full hover:bg-koda-bear/40 transition-colors;
 }
