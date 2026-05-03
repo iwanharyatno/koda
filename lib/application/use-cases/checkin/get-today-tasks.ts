@@ -2,12 +2,15 @@ import { getCurrentWeeklyPlan } from '@/lib/application/use-cases/plan/get-curre
 import { taskRepository } from '@/lib/infrastructure/repositories/drizzle-task-repository';
 import type { Task } from '@/lib/core/entities/task';
 
-export async function getTodayTasks(userId: string): Promise<Task[]> {
-  const weeklyPlan = await getCurrentWeeklyPlan(userId);
+export async function getTodayTasks(userId: string, timezone?: string): Promise<Task[]> {
+  const weeklyPlan = await getCurrentWeeklyPlan(userId, timezone);
   const fullPlan = weeklyPlan?.plan;
   if (!fullPlan || !Array.isArray(fullPlan)) return [];
 
-  const todayName = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(new Date());
+  const todayName = new Intl.DateTimeFormat('en-US', { 
+    weekday: 'long',
+    timeZone: timezone 
+  }).format(new Date());
   const todaySlice = fullPlan.find(day => day.dayName === todayName);
 
   console.log(JSON.stringify(weeklyPlan.plan));

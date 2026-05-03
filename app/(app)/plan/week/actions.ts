@@ -24,11 +24,11 @@ export async function updateWeeklyPlan(newConstraint?: string, currentPlan: any[
   return updateWeeklyPlanUseCase({ userId, newConstraint, currentPlan });
 }
 
-export async function getCurrentWeeklyPlan() {
+export async function getCurrentWeeklyPlan(timezone?: string) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return null;
-  return getCurrentWeeklyPlanUseCase(user.id);
+  return getCurrentWeeklyPlanUseCase(user.id, timezone);
 }
 
 export async function finalizeWeeklyPlan(plan: any, planId?: string) {

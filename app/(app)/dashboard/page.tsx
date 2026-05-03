@@ -18,7 +18,8 @@ export default function DashboardPage() {
     else setGreeting("Good Morning");
 
     startTransition(async () => {
-      const result = await getDashboardData();
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const result = await getDashboardData(tz);
       if (result) setData(result);
     });
   }, []);

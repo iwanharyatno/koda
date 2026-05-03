@@ -5,12 +5,19 @@ import type { IWeeklyPlanRepository } from '@/lib/core/repositories/interfaces';
 import type { WeeklyPlan, ScheduledDay } from '@/lib/core/entities/weekly-plan';
 
 export class DrizzleWeeklyPlanRepository implements IWeeklyPlanRepository {
-  async findCurrentForUser(userId: string): Promise<WeeklyPlan | null> {
+  async findCurrentForUser(userId: string, timezone?: string): Promise<WeeklyPlan | null> {
+    const today = new Intl.DateTimeFormat('en-CA', {
+      timeZone: timezone,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).format(new Date());
+
     const row = await db.query.weeklyPlans.findFirst({
       where: and(
         eq(weeklyPlans.userId, userId),
-        lte(weeklyPlans.weekStart, new Date().toISOString().split('T')[0]),
-        sql`${weeklyPlans.weekStart} + interval '7 days' > now()`
+        lte(weeklyPlans.weekStart, today),
+        sql`${weeklyPlans.weekStart} + interval '7 days' > ${today}`
       ),
       orderBy: (weeklyPlans, { desc }) => [desc(weeklyPlans.generatedAt)],
     });

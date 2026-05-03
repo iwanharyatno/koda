@@ -10,10 +10,10 @@ async function getAuthUserId(): Promise<string | null> {
   return user?.id ?? null;
 }
 
-export async function getTodayTasks() {
+export async function getTodayTasks(timezone?: string) {
   const userId = await getAuthUserId();
   if (!userId) return [];
-  return getTodayTasksUseCase(userId);
+  return getTodayTasksUseCase(userId, timezone);
 }
 
 export async function updateTaskCheckin(taskId: string, status: 'done' | 'skipped' | 'deferred', reason?: string) {

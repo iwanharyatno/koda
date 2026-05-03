@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 import { userRepository } from '@/lib/infrastructure/repositories/drizzle-user-repository';
 import { getCurrentWeeklyPlan } from '@/lib/application/use-cases/plan/get-current-weekly-plan';
 
-export async function getDashboardData() {
+export async function getDashboardData(timezone?: string) {
   const supabase = await createClient();
   const { data: { user: authUser } } = await supabase.auth.getUser();
 
@@ -13,7 +13,7 @@ export async function getDashboardData() {
   const profile = await userRepository.findById(authUser.id);
 
   // 1. Get the fully hydrated plan
-  const weeklyPlan = await getCurrentWeeklyPlan(authUser.id);
+  const weeklyPlan = await getCurrentWeeklyPlan(authUser.id, timezone);
   const fullPlan = weeklyPlan?.plan;
 
   if (!fullPlan || !Array.isArray(fullPlan)) {
@@ -21,7 +21,10 @@ export async function getDashboardData() {
   }
 
   // 2. Pluck out today
-  const todayName = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(new Date());
+  const todayName = new Intl.DateTimeFormat('en-US', {
+    weekday: 'long',
+    timeZone: timezone
+  }).format(new Date());
   const todaySlice = fullPlan.find((day: any) => day.dayName === todayName);
 
   return {

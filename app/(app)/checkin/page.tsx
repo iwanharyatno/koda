@@ -19,7 +19,8 @@ export default function DailyCheckinPage() {
   // Load today's tasks on mount
   useEffect(() => {
     startTransition(async () => {
-      const data = await getTodayTasks();
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const data = await getTodayTasks(tz);
       setTasks(data);
     });
   }, []);

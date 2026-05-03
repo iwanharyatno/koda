@@ -7,8 +7,8 @@ interface GetCurrentWeeklyPlanResult {
   plan: ScheduledDay[];
 }
 
-export async function getCurrentWeeklyPlan(userId: string): Promise<GetCurrentWeeklyPlanResult | null> {
-  const currentPlanRecord = await weeklyPlanRepository.findCurrentForUser(userId);
+export async function getCurrentWeeklyPlan(userId: string, timezone?: string): Promise<GetCurrentWeeklyPlanResult | null> {
+  const currentPlanRecord = await weeklyPlanRepository.findCurrentForUser(userId, timezone);
 
   if (!currentPlanRecord || !currentPlanRecord.planJson) return null;
 

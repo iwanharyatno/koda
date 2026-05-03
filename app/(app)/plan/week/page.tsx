@@ -19,7 +19,8 @@ export default function WeeklyPlanPage() {
 
   useEffect(() => {
     async function loadPlan() {
-      const existingData = await getCurrentWeeklyPlan();
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const existingData = await getCurrentWeeklyPlan(tz);
       // Expecting the new { id, plan } object format
       if (existingData?.plan && Array.isArray(existingData.plan)) {
         setWeekPlan(existingData.plan);
@@ -53,7 +54,8 @@ export default function WeeklyPlanPage() {
           }
         }
 
-        const updatedData = await getCurrentWeeklyPlan();
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const updatedData = await getCurrentWeeklyPlan(tz);
         if (updatedData?.plan && Array.isArray(updatedData.plan)) {
           setWeekPlan(updatedData.plan);
           setPlanId(updatedData.id);

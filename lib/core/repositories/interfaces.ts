@@ -94,7 +94,7 @@ export interface ITaskRepository {
 // Weekly Plan Repository
 // ---------------------------------------------------------------------------
 export interface IWeeklyPlanRepository {
-  findCurrentForUser(userId: string): Promise<WeeklyPlan | null>;
+  findCurrentForUser(userId: string, timezone?: string): Promise<WeeklyPlan | null>;
   findById(id: string): Promise<WeeklyPlan | null>;
   create(data: {
     userId: string;
