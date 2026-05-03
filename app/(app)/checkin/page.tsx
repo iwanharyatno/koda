@@ -4,6 +4,7 @@ import { useState, useEffect, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import KodaAvatar from "@/components/koda/KodaAvatar";
 import { getTodayTasks, updateTaskCheckin } from "./actions";
+import { CheckCircleIcon, ClockIcon, ForwardIcon, ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 
 export default function DailyCheckinPage() {
   const router = useRouter();
@@ -89,7 +90,7 @@ export default function DailyCheckinPage() {
                 disabled={currentIndex === 0 || isPending}
                 className="w-8 h-8 flex items-center justify-center rounded-full bg-koda-charcoal/5 border border-koda-border text-koda-charcoal/60 hover:bg-koda-charcoal/10 hover:text-koda-charcoal disabled:opacity-30 transition-all"
               >
-                ←
+                <ArrowLeftIcon className="w-4 h-4" />
               </button>
               <p className="text-koda-charcoal/60 font-medium min-w-25">
                 Task {currentIndex + 1} of {tasks.length}
@@ -99,7 +100,7 @@ export default function DailyCheckinPage() {
                 disabled={currentIndex === tasks.length - 1 || isPending}
                 className="w-8 h-8 flex items-center justify-center rounded-full bg-koda-charcoal/5 border border-koda-border text-koda-charcoal/60 hover:bg-koda-charcoal/10 hover:text-koda-charcoal disabled:opacity-30 transition-all"
               >
-                →
+                <ArrowRightIcon className="w-4 h-4" />
               </button>
             </div>
           </>
@@ -145,15 +146,15 @@ export default function DailyCheckinPage() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <button onClick={() => handleAction('done')} className="flex flex-col items-center p-4 rounded-xl bg-status-done/5 border border-status-done/20 hover:bg-status-done/10 transition-all text-status-done">
-                <span className="text-2xl mb-2">✅</span>
+                <CheckCircleIcon className="w-8 h-8 mb-2" />
                 <span className="font-bold text-sm">Done</span>
               </button>
               <button onClick={() => handleAction('deferred')} className="flex flex-col items-center p-4 rounded-xl bg-status-deferred/5 border border-status-deferred/20 hover:bg-status-deferred/10 transition-all text-status-deferred">
-                <span className="text-2xl mb-2">⏳</span>
+                <ClockIcon className="w-8 h-8 mb-2" />
                 <span className="font-bold text-sm text-center leading-tight">Started / Defer</span>
               </button>
               <button onClick={() => handleAction('skipped')} className="flex flex-col items-center p-4 rounded-xl bg-status-skipped/5 border border-status-skipped/20 hover:bg-status-skipped/10 transition-all text-status-skipped">
-                <span className="text-2xl mb-2">⏭️</span>
+                <ForwardIcon className="w-8 h-8 mb-2" />
                 <span className="font-bold text-sm text-center">Skip</span>
               </button>
             </div>

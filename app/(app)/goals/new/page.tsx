@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useTransition } from "react";
+import { ChatBubbleLeftEllipsisIcon, ClipboardDocumentListIcon } from "@heroicons/react/24/outline";
 import KodaAvatar from "@/components/koda/KodaAvatar";
 import { continueNegotiation, finalizeGoal } from "./actions";
 import { readStreamableValue } from "@ai-sdk/rsc";
@@ -27,6 +28,7 @@ export default function GoalNegotiationPage() {
   // Manual CRUD State
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
   const [editForm, setEditForm] = useState<Partial<DraftTask>>({});
+  const [activeTab, setActiveTab] = useState<'chat' | 'plan'>('chat');
 
   const handleFinalize = () => {
     startTransition(async () => {
@@ -96,10 +98,38 @@ export default function GoalNegotiationPage() {
   const isGenerating = isPending || activeKodaReply.length > 0;
 
   return (
-    <div className="h-[calc(100vh-6rem)] flex flex-col lg:flex-row gap-6 animate-in fade-in duration-500">
+    <div className="h-[calc(100vh-6rem)] flex flex-col animate-in fade-in duration-500">
+
+      {/* Mobile Tab Switcher */}
+      <div className="flex lg:hidden border-b border-koda-border bg-white sticky top-0 z-10">
+        <button
+          onClick={() => setActiveTab('chat')}
+          className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-bold transition-all ${
+            activeTab === 'chat'
+              ? 'text-koda-bear border-b-2 border-koda-bear'
+              : 'text-koda-charcoal/40 hover:text-koda-charcoal/60'
+          }`}
+        >
+          <ChatBubbleLeftEllipsisIcon className="w-4 h-4" />
+          Chat
+        </button>
+        <button
+          onClick={() => setActiveTab('plan')}
+          className={`flex-1 flex items-center justify-center gap-2 py-3 text-sm font-bold transition-all ${
+            activeTab === 'plan'
+              ? 'text-koda-bear border-b-2 border-koda-bear'
+              : 'text-koda-charcoal/40 hover:text-koda-charcoal/60'
+          }`}
+        >
+          <ClipboardDocumentListIcon className="w-4 h-4" />
+          Plan {draftedTasks.length > 0 && <span className="bg-koda-bear/10 text-koda-bear text-[10px] px-1.5 py-0.5 rounded-full">{draftedTasks.length}</span>}
+        </button>
+      </div>
+
+      <div className="flex-1 flex flex-col lg:flex-row gap-6 min-h-0 p-0 lg:p-0">
 
       {/* LEFT: Negotiation Chat */}
-      <div className="flex-1 border-card flex flex-col overflow-hidden shadow-sm">
+      <div className={`flex-1 border-card flex flex-col overflow-hidden shadow-sm ${activeTab !== 'chat' ? 'hidden lg:flex' : 'flex'}`}>
         <div className="p-4 border-b border-koda-border bg-koda-surface flex items-center gap-4">
           <KodaAvatar mood={isGenerating ? "thinking" : "steady"} className="scale-50 origin-left" />
           <div>
@@ -160,7 +190,7 @@ export default function GoalNegotiationPage() {
       </div>
 
       {/* RIGHT: Live Generated Plan with CRUD */}
-      <div className="w-full lg:w-96 border-card flex flex-col shadow-sm">
+      <div className={`w-full lg:w-96 border-card flex flex-col shadow-sm ${activeTab !== 'plan' ? 'hidden lg:flex' : 'flex'}`}>
         <div className="p-6 border-b border-koda-border">
           <h3 className="font-outfit font-bold text-xl text-koda-charcoal mb-1">{taskTitle || 'Generated Plan'}</h3>
           <p className="text-sm text-koda-charcoal/60 flex justify-between">
@@ -243,6 +273,7 @@ export default function GoalNegotiationPage() {
             Finalize Project
           </button>
         </div>
+      </div>
       </div>
     </div>
   );

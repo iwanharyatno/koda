@@ -5,6 +5,7 @@ import { readStreamableValue } from "@ai-sdk/rsc";
 import KodaAvatar from "@/components/koda/KodaAvatar";
 import TaskCard from "@/components/plan/TaskCard";
 import { generateWeeklyPlan, finalizeWeeklyPlan, getCurrentWeeklyPlan, updateWeeklyPlan } from "./actions";
+import { LockClosedIcon } from "@heroicons/react/24/solid";
 
 export default function WeeklyPlanPage() {
   const [isPending, startTransition] = useTransition();
@@ -75,11 +76,10 @@ export default function WeeklyPlanPage() {
   };
 
   if (isInitialLoading) {
-    return (
-      <div className="h-full flex items-center justify-center">
-        <div className="animate-pulse text-koda-charcoal/60 font-outfit">Consulting Koda...</div>
-      </div>
-    );
+    return <div className="min-h-[calc(100vh-6rem)] flex flex-col items-center justify-center">
+      <KodaAvatar mood={isPending ? 'thinking' : 'encouraging'} className="mb-6 scale-125" />
+      <p className="text-koda-charcoal/60 animate-pulse">Consulting Koda...</p>
+    </div>;
   }
 
   return (
@@ -98,13 +98,13 @@ export default function WeeklyPlanPage() {
                 {weekPlan.length > 0 ? "Adjust & Finalize" : "Plan Your Week"}
               </h2>
               {/* If a plan exists, show the finalize button up top for quick access */}
-              {weekPlan.length > 0 && (
+              {(weekPlan.length > 0 && !planId) && (
                 <button
                   onClick={handleFinalize}
                   disabled={isPending || isSaving}
                   className="bg-koda-bear text-white rounded-xl px-6 py-2 font-bold hover:bg-opacity-90 transition-all shadow-sm disabled:opacity-50 text-sm"
                 >
-                  {isSaving ? "Saving..." : (planId ? "Update Plan" : "Finalize Plan")}
+                  {isSaving ? "Saving..." : "Finalize Plan"}
                 </button>
               )}
             </div>
@@ -164,8 +164,10 @@ export default function WeeklyPlanPage() {
               <div className="p-3 flex-1 overflow-y-auto space-y-3">
                 {day.lockedBlocks?.map((block: string, bIdx: number) => (
                   <div key={`block-${bIdx}`} className="p-2 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center gap-2">
-                    <span className="text-red-400 text-xs">🔒</span>
-                    <span className="text-xs text-red-200 font-medium">{block}</span>
+                    <span className="text-red-400 text-xs">
+                      <LockClosedIcon width={16} height={16} />
+                    </span>
+                    <span className="text-xs text-red-400 font-medium">{block}</span>
                   </div>
                 ))}
 

@@ -23,9 +23,9 @@ export default function KodaAvatar({ mood = 'steady', className = '' }: KodaAvat
     <div className={`relative flex items-center justify-center ${className}`}>
       {/* Decorative Glow behind the bear */}
       <div className={`absolute inset-0 blur-2xl opacity-20 rounded-full transition-colors duration-500 ${
-        mood === 'hyped' ? 'bg-koda-honey' : 
+        mood === 'hyped' ? 'bg-koda-bear' : 
         mood === 'thinking' ? 'bg-blue-400' : 
-        'bg-white/10'
+        'bg-koda-charcoal/10'
       }`} />
       
       <div className="relative w-24 h-24 transition-transform duration-300 hover:scale-110 active:scale-95">

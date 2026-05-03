@@ -26,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${outfit.variable} ${jakarta.variable}`}>
-      <body className="font-jakarta">
+      <body className="font-jakarta bg-koda-background text-koda-charcoal">
         <main className="min-h-screen">
           {children}
         </main>

@@ -13,7 +13,9 @@
   "dependencies": {
     "@ai-sdk/openai": "^3.0.58",
     "@ai-sdk/rsc": "^2.0.174",
+    "@heroicons/react": "^2.2.0",
     "@openrouter/ai-sdk-provider": "^2.9.0",
+    "@popperjs/core": "^2.11.8",
     "@supabase/ssr": "^0.10.2",
     "@supabase/supabase-js": "^2.105.1",
     "ai": "^6.0.174",
@@ -23,6 +25,7 @@
     "postgres": "^3.4.9",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "react-popper": "^2.3.0",
     "zod": "^4.4.2"
   },
   "devDependencies": {
