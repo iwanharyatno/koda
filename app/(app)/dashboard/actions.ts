@@ -1,23 +1,19 @@
 'use server';
 
-import { db } from "@/lib/db";
-import { tasks, users } from "@/lib/db/schema";
-import { createClient } from "@/lib/supabase/server";
-import { eq } from "drizzle-orm";
-import { getCurrentWeeklyPlan } from "../plan/week/actions";
+import { createClient } from '@/lib/supabase/server';
+import { userRepository } from '@/lib/infrastructure/repositories/drizzle-user-repository';
+import { getCurrentWeeklyPlan } from '@/lib/application/use-cases/plan/get-current-weekly-plan';
 
 export async function getDashboardData() {
   const supabase = await createClient();
   const { data: { user: authUser } } = await supabase.auth.getUser();
-  
+
   if (!authUser) return null;
 
-  const profile = await db.query.users.findFirst({
-    where: eq(users.id, authUser.id),
-  });
+  const profile = await userRepository.findById(authUser.id);
 
   // 1. Get the fully hydrated plan
-  const weeklyPlan = await getCurrentWeeklyPlan();
+  const weeklyPlan = await getCurrentWeeklyPlan(authUser.id);
   const fullPlan = weeklyPlan?.plan;
 
   if (!fullPlan || !Array.isArray(fullPlan)) {
@@ -31,6 +27,6 @@ export async function getDashboardData() {
   return {
     name: profile?.name?.split(' ')[0] || 'User',
     // These tasks already have the true 'done'/'pending' status from the hydration step!
-    tasks: todaySlice?.tasks || [] 
+    tasks: todaySlice?.tasks || [],
   };
 }

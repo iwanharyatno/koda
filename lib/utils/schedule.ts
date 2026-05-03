@@ -47,6 +47,7 @@ export function injectTaskIntoPlanJson(
 
       const newTask = {
         id: dbTask.id,
+        goal_name: dbTask.goalName,
         title: dbTask.title,
         duration: `${dbTask.estimatedHours}h`,
         complexity: dbTask.complexity,
