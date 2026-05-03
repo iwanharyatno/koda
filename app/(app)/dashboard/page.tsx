@@ -8,9 +8,15 @@ import { ChatBubbleLeftEllipsisIcon, CheckCircleIcon } from "@heroicons/react/24
 
 export default function DashboardPage() {
   const [isPending, startTransition] = useTransition();
+  const [greeting, setGreeting] = useState("Good Morning");
   const [data, setData] = useState<{ name: string; tasks: any[] } | null>(null);
 
   useEffect(() => {
+    const hour = new Date().getHours();
+    if (hour >= 12 && hour < 18) setGreeting("Good Afternoon");
+    else if (hour >= 18 || hour < 5) setGreeting("Good Evening");
+    else setGreeting("Good Morning");
+
     startTransition(async () => {
       const result = await getDashboardData();
       if (result) setData(result);
@@ -43,7 +49,7 @@ export default function DashboardPage() {
           <KodaAvatar mood={currentMood} className="scale-125 md:scale-150" />
         </div>
         <h1 className="text-3xl md:text-5xl font-bold font-outfit text-koda-charcoal mb-3">
-          Good Morning, {data?.name}.
+          {greeting}, {data?.name}.
         </h1>
         <p className="text-koda-charcoal/60 max-w-md mx-auto">
           {remainingTasks > 0
