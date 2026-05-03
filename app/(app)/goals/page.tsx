@@ -22,22 +22,22 @@ export default async function GoalsGalleryPage() {
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       <header className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-3xl md:text-4xl font-bold font-outfit text-koda-surface mb-2">Goal Vault</h1>
-          <p className="text-koda-sage">Your active campaigns and long-term targets.</p>
+          <h1 className="text-3xl md:text-4xl font-bold font-outfit text-koda-charcoal mb-2">Goal Vault</h1>
+          <p className="text-koda-charcoal/60">Your active campaigns and long-term targets.</p>
         </div>
         
         <Link 
           href="/goals/new" 
           prefetch={false}
-          className="bg-koda-honey text-koda-background font-bold px-6 py-3 rounded-xl hover:bg-yellow-400 transition-colors inline-flex items-center gap-2 shadow-lg shadow-koda-honey/20"
+          className="bg-koda-bear text-white font-bold px-6 py-3 rounded-xl hover:bg-opacity-90 transition-colors inline-flex items-center gap-2 shadow-sm"
         >
           <span>+</span> New Project
         </Link>
       </header>
 
       {activeGoals.length === 0 ? (
-        <div className="glass-card p-10 rounded-2xl text-center border-white/20">
-          <p className="text-koda-sage mb-4">No active projects yet.</p>
+        <div className="border-card p-10 text-center shadow-sm">
+          <p className="text-koda-charcoal/60 mb-4">No active projects yet.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

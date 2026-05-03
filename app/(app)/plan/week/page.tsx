@@ -77,7 +77,7 @@ export default function WeeklyPlanPage() {
   if (isInitialLoading) {
     return (
       <div className="h-full flex items-center justify-center">
-        <div className="animate-pulse text-koda-sage font-outfit">Consulting Koda...</div>
+        <div className="animate-pulse text-koda-charcoal/60 font-outfit">Consulting Koda...</div>
       </div>
     );
   }
@@ -86,7 +86,7 @@ export default function WeeklyPlanPage() {
     <div className="flex flex-col h-[calc(100vh-6rem)] animate-in fade-in duration-500">
 
       {/* Constraint Input Area */}
-      <section className="mb-6 glass-card p-6 rounded-2xl border-white/20 shrink-0">
+      <section className="mb-6 border-card p-6 shrink-0 shadow-sm">
         <div className="flex items-start gap-4">
           <KodaAvatar
             mood={isSaving ? "hyped" : isPending ? "thinking" : "steady"}
@@ -94,7 +94,7 @@ export default function WeeklyPlanPage() {
           />
           <div className="flex-1">
             <div className="flex justify-between items-center mb-2">
-              <h2 className="font-outfit font-bold text-xl text-koda-surface">
+              <h2 className="font-outfit font-bold text-xl text-koda-charcoal">
                 {weekPlan.length > 0 ? "Adjust & Finalize" : "Plan Your Week"}
               </h2>
               {/* If a plan exists, show the finalize button up top for quick access */}
@@ -102,7 +102,7 @@ export default function WeeklyPlanPage() {
                 <button
                   onClick={handleFinalize}
                   disabled={isPending || isSaving}
-                  className="bg-koda-honey text-koda-background rounded-xl px-6 py-2 font-bold hover:bg-yellow-400 transition-all shadow-lg shadow-koda-honey/20 disabled:opacity-50 text-sm"
+                  className="bg-koda-bear text-white rounded-xl px-6 py-2 font-bold hover:bg-opacity-90 transition-all shadow-sm disabled:opacity-50 text-sm"
                 >
                   {isSaving ? "Saving..." : (planId ? "Update Plan" : "Finalize Plan")}
                 </button>
@@ -111,12 +111,12 @@ export default function WeeklyPlanPage() {
 
             {/* --- DYNAMIC KODA MESSAGE AREA --- */}
             {kodaMessage ? (
-              <div className="mb-4 p-3 rounded-xl bg-koda-honey/10 border border-koda-honey/20 text-koda-surface text-sm animate-in fade-in slide-in-from-top-2">
-                <span className="font-bold text-koda-honey mr-2">Koda:</span>
+              <div className="mb-4 p-3 rounded-xl bg-koda-bear/10 border border-koda-bear/20 text-koda-charcoal text-sm animate-in fade-in slide-in-from-top-2">
+                <span className="font-bold text-koda-bear mr-2">Koda:</span>
                 {kodaMessage}
               </div>
             ) : (
-              <p className="text-sm text-koda-sage mb-4 transition-opacity">
+              <p className="text-sm text-koda-charcoal/60 mb-4 transition-opacity">
                 {isSaving ? "Locking it in! See you on the dashboard." :
                   isPending ? "Recalculating your timeline..." :
                     weekPlan.length > 0 ? "Add new constraints below, or Finalize to lock it in." :
@@ -131,12 +131,12 @@ export default function WeeklyPlanPage() {
                 onChange={(e) => setConstraintInput(e.target.value)}
                 disabled={isPending || isSaving}
                 placeholder="e.g., Push all light work to Friday..."
-                className="flex-1 bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-koda-honey transition-colors disabled:opacity-50"
+                className="flex-1 bg-white border border-koda-border rounded-xl px-4 py-3 text-koda-charcoal focus:outline-none focus:border-koda-bear transition-colors disabled:opacity-50"
               />
               <button
                 type="submit"
                 disabled={isPending || isSaving}
-                className="bg-white/10 text-white rounded-xl px-6 py-3 font-bold hover:bg-white/20 transition-colors disabled:opacity-50 min-w-20"
+                className="bg-koda-charcoal/5 border border-koda-border text-koda-charcoal rounded-xl px-6 py-3 font-bold hover:bg-koda-charcoal/10 transition-colors disabled:opacity-50 min-w-20"
               >
                 {isPending ? "..." : "Sync"}
               </button>
@@ -149,16 +149,16 @@ export default function WeeklyPlanPage() {
       <section className="flex-1 overflow-x-auto pb-4 custom-scrollbar">
         <div className="flex gap-4 min-w-max h-full">
           {weekPlan.length === 0 && !isPending && (
-            <div className="w-full flex flex-col items-center justify-center text-koda-sage opacity-50">
+            <div className="w-full flex flex-col items-center justify-center text-koda-charcoal/60 opacity-50">
               <p>Your schedule is empty. Click Sync to let Koda plan your week.</p>
             </div>
           )}
 
           {weekPlan.map((day, idx) => (
-            <div key={idx} className="w-72 flex flex-col h-full bg-black/20 rounded-2xl border border-white/5 overflow-hidden shadow-xl animate-in slide-in-from-right-4">
-              <div className="p-3 border-b border-white/10 bg-white/5 flex justify-between items-baseline">
-                <h3 className="font-outfit font-bold text-lg text-koda-surface">{day.dayName}</h3>
-                <span className="text-xs text-koda-sage font-medium">{day.date}</span>
+            <div key={idx} className="w-72 flex flex-col h-full bg-white rounded-xl border border-koda-border overflow-hidden shadow-sm animate-in slide-in-from-right-4">
+              <div className="p-3 border-b border-koda-border bg-koda-surface flex justify-between items-baseline">
+                <h3 className="font-outfit font-bold text-lg text-koda-charcoal">{day.dayName}</h3>
+                <span className="text-xs text-koda-charcoal/60 font-medium">{day.date}</span>
               </div>
 
               <div className="p-3 flex-1 overflow-y-auto space-y-3">

@@ -26,13 +26,13 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-md glass-card rounded-2xl p-8 flex flex-col items-center">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-koda-background">
+      <div className="w-full max-w-md border-card p-8 flex flex-col items-center">
         
         <KodaAvatar mood={error ? "encouraging" : isPending ? "thinking" : "steady"} className="mb-6" />
         
-        <h1 className="text-3xl font-bold font-outfit text-koda-surface mb-2">Join Koda</h1>
-        <p className="text-koda-sage mb-8 text-center text-sm">
+        <h1 className="text-3xl font-bold font-outfit text-koda-charcoal mb-2">Join Koda</h1>
+        <p className="text-koda-charcoal/60 mb-8 text-center text-sm">
           Your dynamic planning companion awaits.
         </p>
 
@@ -40,43 +40,43 @@ export default function SignupPage() {
           
           {/* Error Message Display */}
           {error && (
-            <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-medium text-center">
+            <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-600 text-sm font-medium text-center">
               {error}
             </div>
           )}
 
           <div>
-            <label className="block text-sm text-koda-sage mb-1">Name</label>
+            <label className="block text-sm text-koda-charcoal/60 mb-1">Name</label>
             <input 
               type="text" 
               name="name"
               required
               disabled={isPending}
-              className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-koda-honey transition-colors disabled:opacity-50"
+              className="w-full bg-white border border-koda-border rounded-lg p-3 text-koda-charcoal focus:outline-none focus:border-koda-bear transition-colors disabled:opacity-50"
               placeholder="How should Koda call you?"
             />
           </div>
           
           <div>
-            <label className="block text-sm text-koda-sage mb-1">Email</label>
+            <label className="block text-sm text-koda-charcoal/60 mb-1">Email</label>
             <input 
               type="email" 
               name="email"
               required
               disabled={isPending}
-              className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-koda-honey transition-colors disabled:opacity-50"
+              className="w-full bg-white border border-koda-border rounded-lg p-3 text-koda-charcoal focus:outline-none focus:border-koda-bear transition-colors disabled:opacity-50"
               placeholder="you@example.com"
             />
           </div>
           
           <div>
-            <label className="block text-sm text-koda-sage mb-1">Password</label>
+            <label className="block text-sm text-koda-charcoal/60 mb-1">Password</label>
             <input 
               type="password" 
               name="password"
               required
               disabled={isPending}
-              className="w-full bg-black/20 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-koda-honey transition-colors disabled:opacity-50"
+              className="w-full bg-white border border-koda-border rounded-lg p-3 text-koda-charcoal focus:outline-none focus:border-koda-bear transition-colors disabled:opacity-50"
               placeholder="••••••••"
             />
           </div>
@@ -84,7 +84,7 @@ export default function SignupPage() {
           <button 
             type="submit"
             disabled={isPending}
-            className="w-full bg-koda-honey text-koda-background font-bold py-3 rounded-lg mt-4 hover:bg-yellow-400 transition-all disabled:opacity-70 flex justify-center items-center gap-2"
+            className="w-full bg-koda-bear text-white font-bold py-3 rounded-lg mt-4 hover:bg-opacity-90 transition-all disabled:opacity-70 flex justify-center items-center gap-2 shadow-sm"
           >
             {isPending ? (
               <>
@@ -97,9 +97,9 @@ export default function SignupPage() {
           </button>
         </form>
 
-        <div className="mt-6 text-sm text-koda-sage">
+        <div className="mt-6 text-sm text-koda-charcoal/60">
           Already have an account?{" "}
-          <Link href="/login" className="text-koda-honey hover:underline">
+          <Link href="/login" className="text-koda-bear hover:underline font-medium">
             Log in
           </Link>
         </div>

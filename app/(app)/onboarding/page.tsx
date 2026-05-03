@@ -79,8 +79,8 @@ export default function OnboardingPage() {
       <header className="flex items-center gap-4 mb-8 py-4 border-b border-white/10">
         <KodaAvatar mood={currentMood} className="scale-75 origin-left transition-all duration-500" />
         <div>
-          <h1 className="text-xl font-bold font-outfit text-koda-surface">Profile Setup</h1>
-          <p className="text-sm text-koda-sage">
+          <h1 className="text-xl font-bold font-outfit text-koda-charcoal">Profile Setup</h1>
+          <p className="text-sm text-koda-charcoal/60">
             {isKodaTyping ? "Koda is typing..." : "Koda is getting to know your routine..."}
           </p>
         </div>
@@ -110,7 +110,7 @@ export default function OnboardingPage() {
       </div>
 
       {/* Input Area */}
-      <div className="fixed bottom-0 left-0 w-full p-4 bg-koda-background/80 backdrop-blur-xl border-t border-white/10">
+      <div className="fixed bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-xl border-t border-koda-border">
         <div className="max-w-3xl mx-auto">
           <form onSubmit={handleSend} className="flex gap-2">
             <input
@@ -119,15 +119,15 @@ export default function OnboardingPage() {
               onChange={(e) => setInput(e.target.value)}
               disabled={isKodaTyping || isPending}
               placeholder={step === 2 ? "Type 'Let's go' to finish..." : "Reply to Koda..."}
-              className="flex-1 bg-black/40 border border-white/10 rounded-full px-6 py-4 text-white focus:outline-none focus:border-koda-honey transition-colors disabled:opacity-50"
+              className="flex-1 bg-white border border-koda-border rounded-full px-6 py-4 text-koda-charcoal focus:outline-none focus:border-koda-bear transition-colors disabled:opacity-50 shadow-sm"
             />
             <button 
               type="submit"
               disabled={isKodaTyping || isPending || !input.trim()}
-              className="bg-koda-honey text-koda-background rounded-full px-8 py-4 font-bold hover:bg-yellow-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-koda-honey/20 flex items-center justify-center min-w-30"
+              className="bg-koda-bear text-white rounded-full px-8 py-4 font-bold hover:bg-opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm flex items-center justify-center min-w-30"
             >
               {isPending ? (
-                <div className="w-5 h-5 border-2 border-koda-background border-t-transparent rounded-full animate-spin" />
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
               ) : step === 2 ? (
                 "Finish"
               ) : (
