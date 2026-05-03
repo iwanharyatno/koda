@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Outfit } from "next/font/google";
 import "./globals.css";
+import NextTopLoader from "nextjs-toploader";
 
 // Headings: Rounded but modern[cite: 2]
 const outfit = Outfit({
@@ -44,6 +45,7 @@ export default function RootLayout({
       <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
       <meta name="theme-color" content="#ffffff" />
       <body className="font-jakarta bg-koda-background text-koda-charcoal">
+        <NextTopLoader showSpinner={false} color="#D29B5D"/>
         <main className="min-h-screen">
           {children}
         </main>
